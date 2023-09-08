@@ -1,8 +1,7 @@
 
 # ![image](https://github.com/IgorAdelino/shopper-test/assets/117618427/0cbdf638-19c4-4e9c-9950-060ea6a0e19b)  shopper-test  
 
-- Aplicação Fullstack feita durante teste técnico da shopper que atualiza valores de pacotes e produtos no banco de dados a partir de arquivos CSV.
-- Utilizando Typescript, Node e React
+- Aplicação Fullstack feita durante teste técnico da shopper que atualiza valores de pacotes e produtos no banco de dados a partir de arquivos CSV. Utilizando Typescript, Node e React
 
 ## RFs (Requisitos funcionais)
 
