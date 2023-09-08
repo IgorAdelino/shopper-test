@@ -11,7 +11,7 @@ type PackInSystem = {
   product_id: number,
   qty: number
 }
-
+//Procurando por algum código que não consta no banco de dados
 export function SearchForInvalidCode(result: any, products: any){
   const invalidCode = products.filter((firstObject: any) =>
         !result.some((secondObject: PackInSystem | ProductInSystem) => {

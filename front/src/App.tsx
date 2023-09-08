@@ -15,12 +15,16 @@ export interface Product {
 
 
 function App() {
+  //Arquivo do upload
   const [file, setFile] = useState<File | null>(null);
+  //Response da validação
   const [responseData, setResponseData] = useState(null);
+  //Response da atualização
   const [updateResponseData, setUpdateResponseData] = useState(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [newProducts, setNewProducts] = useState<Product[]>([]);
 
+  //Função de validação do arquivo
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
@@ -35,7 +39,7 @@ function App() {
       setResponseData(null);
     }
   };
-
+  //Função de requisição e validação do produto
   const upload = () => {
     if (file) {
       const formData = new FormData();
@@ -54,7 +58,7 @@ function App() {
       alert("Arquivo não selecionado");
     }
   };
-
+  //Função de atualização do produto já validade
   const update = () => {
     axios
       .patch("http://localhost:3000/update-products", responseData)

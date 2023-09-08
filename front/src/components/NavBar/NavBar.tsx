@@ -1,6 +1,6 @@
 import style from './NavBar.module.css'
 
-
+//Header da aplicação
 export default function NavBar() {
   return (
     <div className={style.header}>

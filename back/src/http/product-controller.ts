@@ -16,7 +16,7 @@ import { MysqlUpdateProdutsByCode } from "../repositories/mysql/mysql-update-pro
 import { MySqlFindAllProducts } from "../repositories/mysql/mysql-find-all-products";
 import { MySqlFindAllPacks } from "../repositories/mysql/mysql-find-all-packs";
 import { InvalidValuesError } from "../use-cases/errors/invalid-values-error";
-import { CreateOldPriceValue } from "../use-cases/create-old-price-value";
+import { CreateOldPriceField } from "../use-cases/create-old-price-field";
 
 
 interface ProductUpdate {
@@ -39,6 +39,7 @@ type PackInSystem = {
 }
 
 export class ProductsController {
+  //Rota para validar o arquivo csv
   static async validateProducts(request: Request, response: Response){
     const buffer = request.file?.buffer.toString('utf-8')
     if(!buffer){
@@ -47,21 +48,23 @@ export class ProductsController {
     const products: ProductUpdate[] = SplitCsvFile(buffer)
     
     try {
+      // Verifica o conteúdo do array
       if (products.some(product => isNaN(product.code) || isNaN(product.new_price))) {
         throw new InvalidValuesError()
       }
+      //Criação dos placeholders que serão passados na consulta ao banco de dados
       const codes = products.map((product) => product.code);
 
       const PackQuery = await MySqlFindPackByCode(codes)
       
+      //adicionando os códigos dos pacotes que precisam ser adicionados por consequência
       if(PackQuery.length){
         for(let packsProducts of PackQuery){
           codes.push(packsProducts.product_id, packsProducts.pack_id)
         }
       }
-      
       const ProductQuery = await MySqlFindProductsByCode(codes)
-
+      //Junção dos novos preços e produtos que precisam ser atualizados
       const result: (PackInSystem | ProductInSystem)[] = [...ProductQuery, ...PackQuery]
       
       const valoresNaoPresentes = SearchForInvalidCode(result, products)
@@ -69,7 +72,7 @@ export class ProductsController {
       if(valoresNaoPresentes.length){
         throw new CodeNotFoundError()
       }
-    
+      //Verificação de erro dentro dos novos preços
       for (const firstObject of products) {
         const LowerCostPrice = ProductQuery.some(secondObject => secondObject.code === firstObject.code && secondObject.cost_price>firstObject.new_price);
         const tenPercentDiference = ProductQuery.some(secondObject => secondObject.code === firstObject.code && (firstObject.new_price>secondObject.sales_price*1.1 || firstObject.new_price<secondObject.sales_price*0.9));
@@ -81,7 +84,6 @@ export class ProductsController {
         }
   
       }
-      console.log("Validou!")
       return response.send({newPriceProducts: products, productsToUpdate: result}).status(200);
     } catch (err: any) {
       console.error(err);
@@ -92,18 +94,25 @@ export class ProductsController {
   static async updateProducts(request: Request, response: Response){
     const oldProducts = JSON.parse(JSON.stringify(request.body.productsToUpdate))
     const {newPriceProducts, productsToUpdate} = JSON.parse(JSON.stringify(request.body))
-    
+
+    //Realizando a atualização dos valores em memória
     const updatedPrices = updatePricesInMemory(newPriceProducts, productsToUpdate)
+
+    //Filtrando apenas os produtos sem a tabela de packs
     const oldProductsPrice = oldProducts.filter((product: { sales_price: number; }) => product.sales_price !== undefined);
-    const result = CreateOldPriceValue(updatedPrices, oldProductsPrice)
+
+    //Criando um campo de preço atual para mostrar no frontend
+    const result = CreateOldPriceField(updatedPrices, oldProductsPrice)
+
     try {
+      //Atualizando os produtos no mysql
       await MysqlUpdateProdutsByCode(updatedPrices)
       return response.status(200).send(result)
     }catch{
       return response.status(500).send("Erro interno do servidor")
     }
   }
-
+  //Exibir todos os produtos
   static async showAllProducts(request: Request, response: Response){
     try {
       const result = await MySqlFindAllProducts()
@@ -114,7 +123,7 @@ export class ProductsController {
       return response.status(500).send("Erro interno do servidor");
     } 
   }
-   
+  //Exibir todos os packs
   static async showAllPacks(request: Request, response: Response){
     try {
       const result = await MySqlFindAllPacks()

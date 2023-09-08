@@ -3,6 +3,7 @@ interface ProductUpdate {
   new_price: number
 }
 
+//Separando os elementos do arquivo csv
 export function SplitCsvFile(buffer: string){
   const productValues = buffer?.trim().split(/\n/);
     

@@ -5,8 +5,8 @@ interface newProduct {
   old_sales_price?: number
   cost_price: number
 }
-
-export function CreateOldPriceValue (newProductsPrice: any, oldPriceValues: any) {
+//Criando o campo preço atual para retornar na requisição para o front
+export function CreateOldPriceField (newProductsPrice: any, oldPriceValues: any) {
   
   const result: newProduct[] = newProductsPrice.map((item: any)=> {
     const sameCode = oldPriceValues.find((product: any) => product.code === item.code)
