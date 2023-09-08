@@ -1,0 +1,113 @@
+.firstView {
+  background-image: url('./src/assets/shopper-section.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color:white;
+  height: 100vh;
+  width: 100%
+}
+.content {
+  padding-left: 3rem;
+  height: 60vh;
+  display:flex;
+  flex-direction: row;
+}
+.newPrice {
+  color: red;
+}
+
+.fileCard {
+  margin-top:10rem;
+  height: 30vh;
+  background-color: white;
+  height: 21vh;
+  width: 24rem;
+  padding: 0.5rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:2rem;
+  border-radius: 2rem;
+  background: rgb(30, 32, 68, 0.8);
+  font-size: 1rem;
+}
+.flip-card {
+  background-color: transparent;
+  width: 190px;
+  height: 254px;
+  perspective: 1000px;
+  font-family: sans-serif;
+  margin:1rem;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center;
+  margin: 0;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.flip-card-inner, span {
+  color: #14b781;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 11rem;
+  height: 14rem;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1px solid rgb(30, 32, 68, 0.9);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.flip-card-front {
+  background: linear-gradient(120deg, bisque 60%, rgb(255, 231, 222) 88%,
+     rgb(255, 211, 195) 40%, rgb(30, 32, 68, 0.9), 48%);
+  color: rgb(30, 32, 68, 0.9);
+  background-color: rgb(255, 255, 255, 0.8);
+  gap: 0.3rem;
+  align-items: left;
+}
+
+.flip-card-back {
+  background: linear-gradient(120deg, rgb(30, 32, 68, 0.9) 30%, #14b781 88%,
+     bisque 40%, white 78%);
+  color: white;
+  transform: rotateY(180deg);
+}
+.fileCard:hover {
+  background: rgb(30, 32, 68, 0.9)
+}
+
+.buttons {
+  display: flex;
+  flex-direction:row;
+  gap:1rem
+}
+
+.cards{
+  padding-top: 1rem;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction:row;
+  flwx-wrap: wrap;
+}

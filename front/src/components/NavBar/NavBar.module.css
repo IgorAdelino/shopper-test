@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  background-color: #1E2044;
+  padding: 2rem;
+  gap: 16rem;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items:center;
+  height: 5vh
+}
+.buttons {
+  width: 38rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor:pointer;
+}
+.loginButton {
+  background-color: #1E2044;
+  padding: 0.1rem 1rem 0.1rem 1rem;
+  font-size: 1.21rem;
+  width: 10rem;
+  border: green;
+  border: 0.1rem solid green;
+}
+.registerButton {
+  background-color: #14b781;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  font-size: 1.21rem;
+  width: 10rem;
+  border: green;
+  border: 0.1rem solid green;
+}
+.loginButton:hover {
+  border-color: #10cd8f
+}
+.registerButton:hover {
+  border-color: #10cd8f
+}
+
+img {
+  height: 8.8rem;
+}
+
