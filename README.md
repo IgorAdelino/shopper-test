@@ -6,15 +6,17 @@
 ## RFs (Requisitos funcionais)
 
 - [x] Deve ser possível fazer upload de um arquivo .csv;
-- [x] Deve ser possível alterar o preço de um produto;
-- [x] Deve ser possível alterar o preço de um pacote;
-- [x] Deve ser possível obter o novo preço do produto alterado;
-- [x] Deve ser possível obter o novo preço do pacote alterado;
+- [x] Deve ser possível alterar o preço de venda de um produto;
+- [x] Deve ser possível alterar o preço de venda de um pacote;
+- [x] Deve ser possível obter o novo preço de venda do produto alterado;
+- [x] Deve ser possível obter o novo preço de venda do pacote alterado;
+- [x] Deve ser possível obter o antigo preço de venda do pacote alterado;
+- [x] Deve ser possível obter o antigo preço de venda do pacote alterado;
 
 ## RNs (Regras de negócios)
 
 - [x] O usuário só deve poder fazer upload de arquivo csv;
-- [x] O arquivo não deve possuir campos além números que são o código e o preço do produto;
+- [x] O arquivo não deve possuir campos além de números que são o código e o preço do produto;
 - [x] O arquivo csv deve possuir códigos presentes no banco de dados;
 - [x] O usuário não deve poder reajustar o valor do produto para menor do que seu valor de custo;
 - [x] O usuário não pode poder reajustar o valor acima ou abaixo do limite de 10% do valor de venda;
@@ -64,6 +66,14 @@
 - Inicie o servidor no frontend
 ```bash
   npm run dev
+```
+
+## Exemplo de conteúdo do arquivo.csv
+-Código e Novo preço de venda do produto (Separados por vírgula)
+```bash
+  18,9.56
+  1020,58.00
+  1000,56
 ```
 
 ## Funcionalidade
