@@ -61,10 +61,12 @@
 
 - Inicie o servidor no backend
 ```bash
+  cd back
   npm run start:dev
 ```
 - Inicie o servidor no frontend
 ```bash
+  cd front
   npm run dev
 ```
 
